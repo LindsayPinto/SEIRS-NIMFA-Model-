@@ -59,6 +59,8 @@ class SimulationFrame(tk.Frame):
         heat_map_frame.grid_columnconfigure(1, minsize=280, weight=1)
         heat_map_frame.grid_rowconfigure(0, minsize= 48)
         heat_map_frame.grid_rowconfigure(1, minsize= 48)
+        heat_map_frame.grid_rowconfigure(2, weight=1)
+        heat_map_frame.grid_rowconfigure(3, minsize= 48)
 
         self.show_graph(heat_map_frame)
 
@@ -175,7 +177,7 @@ class SimulationFrame(tk.Frame):
         toolbar = NavigationToolbar2Tk(canvas, parent, pack_toolbar=False)
         toolbar.update()
         toolbar.grid(row=0, column=0)
-        canvas.get_tk_widget().grid(row=1, column=0, rowspan=2)
+        canvas.get_tk_widget().grid(row=1, column=0, rowspan=3)
 
     def show_graph2(self, parent):
         self.fig_evo_graph = self.model2.show_graph(self.current_step) #self.network2.draw_graph_structure()
@@ -214,6 +216,11 @@ class SimulationFrame(tk.Frame):
         toolbar.update()
         toolbar.grid(row=1, column=1)
         canvas.get_tk_widget().grid(row=2, column=1)
+
+        critical_frame = tk.Frame(self.heat_map_frame)
+        tk.Label(critical_frame, text="Critical nodes: " + str(model.critical_nodes)).pack()
+        tk.Label(critical_frame, text="Max. infected: " + str(model.max_infected)).pack()
+        critical_frame.grid(row=3, column=1)
 
     def show_evolution(self, model, node):
         self.fig_net_evo = model.plot_network_evolution()

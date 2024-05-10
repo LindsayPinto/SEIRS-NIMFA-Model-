@@ -200,7 +200,29 @@ class SNModel:
                     if compartment==States.I.value:
                         # Add total infected nodes to structure for comparisson
                         self.total_infected[node][k]+=1
+
+        critical_nodes = []
+        max_infected = 0
+        critical_change = False
+
+        for k in range(1, self.n_times+1):
+            critical_change = False
+            for node in range(self.n):
+                if self.total_infected[node][k] > max_infected:
+                    critical_nodes = [node]
+                    max_infected = self.total_infected[node][k]
+                    critical_change = True
+                elif critical_change and self.total_infected[node][k] == max_infected:
+                    critical_nodes.append(node)
+
+        self.critical_nodes = critical_nodes
+        self.max_infected = max_infected
     
+        print("nodos críticos:")
+        print(critical_nodes)
+        print("máximo infectados:")
+        print(max_infected)
+
     # ----------------- Visualization of the model results ---------------------------
 
     def define_compartment(self, node, t_step):
