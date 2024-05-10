@@ -36,7 +36,7 @@ sudo apt-get install python3-tk
 ## Usage
 
 1. Run the main.py file.
-2. A window will open where you can load the corresponding network file you want to analyze. This network should be in JSON format and represented as an adjacency list.
+2. A window will open where you can load the corresponding network file you want to analyze. This network should be in JSON format and represented as an adjacency list. (In the 'data' folder, there are some examples of network topologies that can be explored)
 3. Adjust the rates as needed.
 4. In the first tab named Heatmap, execute the 'run' command to see the heatmap corresponding to the evolution of the nodes if each node is the initial one.
 5. In the second tab named Network, you can see the step-by-step evolution of the infection. Also, the evolution of the network and the determined initial device.
