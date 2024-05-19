@@ -8,7 +8,6 @@ from model.network import Network
 
 class SNModel:
 
-
     # ------------------ Model definition and initialization -------------------
     def __init__(self, network: Network, rates:dict) -> None:
         # network:= Network object -> Information of devices and connections
@@ -106,18 +105,6 @@ class SNModel:
             if visualization:
                 # Add compartments dictionary to list
                 self.nodes_comp.append(comp_dict)
-            
-            if k >= 0 and k < 5:
-                print(":::::::::: " + str(k) + " ::::::::::")
-                print("w")
-                print(self.w[:, k])
-                print("y")
-                print(self.y[:, k])
-                print("z")
-                print(self.z[:, k])
-                print("x")
-                print(self.x[:, k])
-                print()
 
             # Convergence test
             diff_s = np.linalg.norm(self.x[:,k] - self.x[:,k-1])
@@ -127,12 +114,7 @@ class SNModel:
             else:
                 convergence_count=0
 
-            if k%50 == 0:
-                print(k)
-
             k += 1
-
-        print("ok")
 
     def run_model_fe_node(self, time_steps)->None:
         """
@@ -172,19 +154,6 @@ class SNModel:
             for k in range(1, self.n_times+1):
                 t[k] = t[k - 1] + dt
 
-                if k > 0 and k < 5:
-                    print(":::::::::: " + str(k) + " ::::::::::")
-                    print("t: " + str(t[k]))
-                    print("w")
-                    print(self.w[:, k-1])
-                    print("y")
-                    print(self.y[:, k-1])
-                    print("z")
-                    print(self.z[:, k-1])
-                    print("x")
-                    print(self.x[:, k-1])
-                    print()
-
                 for i in range(self.n):
                     y0 = [self.x[i, k-1], self.w[i, k-1], self.y[i, k-1], self.z[i, k-1]]
 
@@ -217,14 +186,8 @@ class SNModel:
 
         self.critical_nodes = critical_nodes
         self.max_infected = max_infected
-    
-        print("nodos críticos:")
-        print(critical_nodes)
-        print("máximo infectados:")
-        print(max_infected)
 
     # ----------------- Visualization of the model results ---------------------------
-
     def define_compartment(self, node, t_step):
         """
         Assign the node a current compartment according to the probabilities

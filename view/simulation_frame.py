@@ -13,14 +13,12 @@ class SimulationFrame(tk.Frame):
         self.rates = rates
         self.current_step = 0
 
-        print(rates)
-
         self.grid_rowconfigure(0, minsize= 700)
         self.grid_rowconfigure(1, weight=1)
 
         # Create network
-        self.network = Network(2, file_name=file)
-        self.network2 = Network(2, file_name=file)
+        self.network = Network(file_name=file)
+        self.network2 = Network(file_name=file)
 
         # Create tab control
         self.tabs = ttk.Notebook(self)
@@ -104,8 +102,8 @@ class SimulationFrame(tk.Frame):
         tk.Button(btn_frame, command = lambda:self.change_current_graph("back"), text="<").grid(row=0, column=3, sticky="ew")
         network_frame.step_label = tk.Label(btn_frame, text="Step #")
         network_frame.step_label.grid(row=0, column=5, sticky="nsew")
-        tk.Button(btn_frame, command = lambda:self.change_current_graph("ford"), text=">").grid(row=0, column=7, sticky="ew") #command=lambda: showSimulation(file)
-        tk.Button(btn_frame, command = lambda:self.change_current_graph("last"), text=">>").grid(row=0, column=9, sticky="ew") #command=lambda: showSimulation(file)
+        tk.Button(btn_frame, command = lambda:self.change_current_graph("ford"), text=">").grid(row=0, column=7, sticky="ew")
+        tk.Button(btn_frame, command = lambda:self.change_current_graph("last"), text=">>").grid(row=0, column=9, sticky="ew")
 
         btn_frame.grid_remove()
         network_frame.btn_frame = btn_frame
@@ -180,7 +178,7 @@ class SimulationFrame(tk.Frame):
         canvas.get_tk_widget().grid(row=1, column=0, rowspan=3)
 
     def show_graph2(self, parent):
-        self.fig_evo_graph = self.model2.show_graph(self.current_step) #self.network2.draw_graph_structure()
+        self.fig_evo_graph = self.model2.show_graph(self.current_step)
         canvas = FigureCanvasTkAgg(self.fig_evo_graph, master = parent)
         canvas.draw()
         toolbar = NavigationToolbar2Tk(canvas, parent, pack_toolbar=False)
